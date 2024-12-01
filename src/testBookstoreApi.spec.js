@@ -1,30 +1,8 @@
-//1 Post успешный новый пользователь
-//Выгрузка из Посман
-//const myHeaders = new Headers();
-//myHeaders.append("Content-Type", "application/json");
+import config from '../framework/config/configBookstore'
 
-//const raw = JSON.stringify({
-  //"userName": "Anna4@",
-  //"password": "Paroll@19"
-//});
-
-//const requestOptions = {
-  //method: "POST",
-  //headers: myHeaders,
-  //body: raw,
-  //redirect: "follow"
-//};
-
-//fetch("https://bookstore.demoqa.com/Account/v1/User", requestOptions)
-  //.then((response) => response.text())
-  //.then((result) => console.log(result))
-  //.catch((error) => console.error(error));
-
-  //1 Post успешный новый пользователь
-  //Fetch
   describe('Post успешный новый пользователь', () => {
     it('Post успешный новый пользователь', async () => {
-    const response = await fetch('https://bookstore.demoqa.com/Account/v1/User', {
+    const response = await fetch(`${config.baseURL}/User`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -34,7 +12,7 @@
   })
   const data = await response.json()
   
-  expect(response.status).toEqual(201)
+  expect(response.status).toBe(201)
   expect (data.token).toBeDefined('Created')
   expect (data.result).toBe('успешный новый пользователь')
 })
@@ -74,9 +52,9 @@
       password: config.password
     })
   })
+  expect(response2.status).toEqual(200)
   const data = await response2.json()
   
-  expect(response2.status).toEqual(200)
   expect(data.token).toBeDefined('OK')
   expect(data.result).toBe('авторизация')
 })
@@ -100,11 +78,8 @@
   //Fetch
   describe('Получение данных о пользователе', () => {
     it('Получение данных о пользователе', async () => {
-    const response3 = await fetch('https://bookstore.demoqa.com/Account/v1/User/7bd320e3-b037-4f42-8ed1-2729e37a9c06', {
-      method: 'GET'
-    })//{
+    const response3 = await fetch('https://bookstore.demoqa.com/Account/v1/User/a351857e-5358-4d44-a8f7-c78550c1b513')
       
-    
     //method: 'GET',
       //headers: { 'Content-Type': 'application/json' },
       //body: JSON.stringify({
@@ -113,11 +88,10 @@
     //})
   
     //})
-  const data = await response3.json()
+    expect(response3.status).toBe(200)  
+    const data = await response3.json()
   
   //console.log(data)
-  
-  expect(response3.status).toEqual(200)
   expect(data.token).toBeDefined('OK')
   expect(data.result).toBe('получение данных о пользователе')
 })
@@ -169,9 +143,9 @@
         password: config.password
     })
   })
-  const data = await response2.json()
+  expect(response3.status).toBe(200)
+  const data = await response3.json()
   
-  expect(response2.status).toEqual(200)
   expect(data.token).toBeDefined('OK')
   expect(data.result).toBe('удаление пользователя')
 })
